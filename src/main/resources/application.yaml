@@ -64,8 +64,8 @@ springdoc:
     oauth2-redirect-url: http://localhost:8080/swagger-ui/oauth2-redirect.html
 
 mail:
-  email: ${EMAIL_SEND_FROM:macsimmax1996@mail.ru}
-  password: ${EMAIL_PASSWORD_SEND_FROM:hINIEAiP6QbUSVaQrTNL}
+  email: ${EMAIL_SEND_FROM:email}
+  password: ${EMAIL_PASSWORD_SEND_FROM:pass}
 
 logging:
   level:
