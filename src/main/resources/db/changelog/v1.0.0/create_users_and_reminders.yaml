@@ -1,0 +1,88 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-users
+      author: Mukhachev Maksim
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: varchar(100)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: telegram_username
+                  type: varchar(100)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: tg_chat_id
+                  type: bigint
+                  constraints:
+                    nullable: true
+      rollback:
+        - dropTable:
+            tableName: users
+  - changeSet:
+      id: create-reminders
+      author: Mukhachev Maksim
+      changes:
+        - createTable:
+            tableName: reminders
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: title
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(4096)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: remind
+                  type: datetime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: varchar(100)
+              - column:
+                  name: shipped
+                  type: boolean
+                  defaultValueBoolean: false
+      rollback:
+        - dropTable:
+            tableName: reminders
+  - changeSet:
+      id: add-fk-reminders_users
+      author: Mukhachev Maksim
+      changes:
+      - addForeignKeyConstraint:
+          baseTableName: reminders
+          baseColumnNames: user_id
+          constraintName: reminders_users_fk
+          referencedTableName: users
+          referencedColumnNames: id
+          onDelete: CASCADE
+          onUpdate: RESTRICT
